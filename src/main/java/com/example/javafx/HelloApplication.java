@@ -13,29 +13,19 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     Stage window;
-    Scene content1, content2;
+    Button button;
 
     @Override
     public void start(Stage stage) throws IOException {
         window = stage;
+        button = new Button("Click me");
+        button.setOnAction(e -> AlertBox.display("Window", "Awesome user interface"));
 
-        Label label1 = new Label("Welcome to cinema");
-        Button button1 = new Button("Go to scene 2");
-        button1.setOnAction(e -> window.setScene(content2));
+        StackPane stackPane = new StackPane();
+        stackPane.getChildren().add(button);
+        Scene scene = new Scene(stackPane, 300, 250);
 
-        VBox vBox = new VBox(20);
-        layoutSetUp(vBox, button1, label1);
-        content1 = new Scene(vBox, 200, 200);
-
-        Button button2 = new Button("This scene look weird, go back to scene 1");
-        button2.setOnAction(e -> window.setScene(content1));
-
-        StackPane pane = new StackPane();
-        layoutSetUp(pane, button2);
-        content2 = new Scene(pane, 600, 300);
-
-        display(window, "Cinema", content1);
-
+        display(window, "Cinema", scene);
     }
 
     public static void main(String[] args) {
@@ -48,15 +38,4 @@ public class HelloApplication extends Application {
         stage.show();
     }
 
-    public void eventSetup(Stage stage, Scene scene, Button button) {
-        button.setOnAction(e -> stage.setScene(scene));
-    }
-
-    public void layoutSetUp(VBox pane, Button btn, Label label) {
-        pane.getChildren().addAll(label, btn);
-    }
-
-    public void layoutSetUp(StackPane pane, Button btn) {
-        pane.getChildren().addAll(btn);
-    }
 }
